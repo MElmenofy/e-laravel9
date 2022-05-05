@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\LoginController;
+use App\Http\Controllers\Dashboard\MainCategoriesController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\SettingsController;
+use App\Http\Controllers\Dashboard\SubCategoriesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +37,28 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
             Route::get('edit', [ProfileController::class, 'editProfile'])->name('edit.profile');
             Route::put('update', [ProfileController::class, 'updateProfile'])->name('update.profile');
         });
+
+        // CATEGORIES
+        Route::group(['prefix' => 'main_categories'], function () {
+            Route::get('/', [MainCategoriesController::class, 'index'])->name('admin.maincategories');
+            Route::get('create', [MainCategoriesController::class, 'create'])->name('admin.maincategories.create');
+            Route::post('store', [MainCategoriesController::class, 'store'])->name('admin.maincategories.store');
+            Route::get('edit/{id}', [MainCategoriesController::class, 'edit'])->name('admin.maincategories.edit');
+            Route::post('update/{id}', [MainCategoriesController::class, 'update'])->name('admin.maincategories.update');
+            Route::get('delete/{id}', [MainCategoriesController::class, 'destroy'])->name('admin.maincategories.delete');
+        });
+        // /CATEGORIES
+
+        // CATEGORIES
+        Route::group(['prefix' => 'sub_categories'], function () {
+            Route::get('/', [SubCategoriesController::class, 'index'])->name('admin.subcategories');
+            Route::get('create', [SubCategoriesController::class, 'create'])->name('admin.subcategories.create');
+            Route::post('store', [SubCategoriesController::class, 'store'])->name('admin.subcategories.store');
+            Route::get('edit/{id}', [SubCategoriesController::class, 'edit'])->name('admin.subcategories.edit');
+            Route::post('update/{id}', [SubCategoriesController::class, 'update'])->name('admin.subcategories.update');
+            Route::get('delete/{id}', [SubCategoriesController::class, 'destroy'])->name('admin.subcategories.delete');
+        });
+        // /CATEGORIES
 
 
     });
