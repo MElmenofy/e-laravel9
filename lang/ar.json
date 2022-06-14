@@ -4,5 +4,14 @@
     "The :attribute must contain at least one symbol.": "The :attribute must contain at least one symbol.",
     "The :attribute must contain at least one uppercase and one lowercase letter.": "The :attribute must contain at least one uppercase and one lowercase letter.",
     "The given :attribute has appeared in a data leak. Please choose a different :attribute.": "The given :attribute has appeared in a data leak. Please choose a different :attribute.",
-    "Total sales": "اجمالي المبيعات"
+    "Total sales": "اجمالي المبيعات",
+    "Name": "الاسم",
+    "Status": "الحالة",
+    "Photo": "الصورة",
+    "Actions": "الاجراءات",
+    "Show All": "عرض الكل",
+    "Brands": "الماركات التجارية",
+    "Add Brand": "أضف ماركة تجارية",
+    "Item created successfully": "تمت عملية الاضافة بنجاح",
+    "Something went wrong!": "حدث خطأ ما!"
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\BrandsController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\LoginController;
 use App\Http\Controllers\Dashboard\MainCategoriesController;
@@ -59,6 +60,17 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
             Route::get('delete/{id}', [SubCategoriesController::class, 'destroy'])->name('admin.subcategories.delete');
         });
         // /CATEGORIES
+
+        // brands
+        Route::group(['prefix' => 'brands'], function () {
+            Route::get('/', [BrandsController::class, 'index'])->name('admin.brands');
+            Route::get('create', [BrandsController::class, 'create'])->name('admin.brands.create');
+            Route::post('store', [BrandsController::class, 'store'])->name('admin.brands.store');
+            Route::get('edit/{id}', [BrandsController::class, 'edit'])->name('admin.brands.edit');
+            Route::post('update/{id}', [BrandsController::class, 'update'])->name('admin.brands.update');
+            Route::get('delete/{id}', [BrandsController::class, 'destroy'])->name('admin.brands.delete');
+        });
+        // /brands
 
 
     });
