@@ -9,10 +9,9 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="">{{ __('Home') }}</a>
                                 </li>
-                                <li class="breadcrumb-item"><a
-                                        href="{{ route('admin.brands') }}">{{ __('Brands') }} </a>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.tags') }}">{{ __('Tags') }} </a>
                                 </li>
-                                <li class="breadcrumb-item active"> {{ __('Edit Brand') }}
+                                <li class="breadcrumb-item active"> {{ __('Add Tag') }}
                                 </li>
                             </ol>
                         </div>
@@ -26,7 +25,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> {{ __('Edit Brand') }}</h4>
+                                    <h4 class="card-title" id="basic-layout-form"> {{ __('Edit Tag') }}</h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -43,36 +42,19 @@
                                 <div class="card-content collapse show">
                                     <div class="card-body">
                                         <form class="form"
-                                              action="{{ route('admin.brands.update', $brand->id) }}"
+                                              action="{{ route('admin.tags.update', $tag->id) }}"
                                               method="post" enctype="multipart/form-data">
                                             @csrf
-                                            <input hidden name="id" value="{{ $brand->id }}">
-                                            <div class="form-group">
-                                                <div class="text-center">
-                                                    <img src="{{ $brand->photo }}" class="rounded-circle height-150" alt="$brand->name">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>{{ __('Brand Image') }}</label>
-                                                <label for="projectinput7" class="file center-block"></label>
-                                                <input type="file" value="" id="photo"
-                                                       class="file"
-                                                       name="photo">
-                                                @error("photo")
-                                                <span class="text-danger">{{$message}}</span>
-                                                @enderror
-                                            </div>
-
-
+                                            <input hidden name="id" value="{{ $tag->id }}">
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput1">{{ __('Brand Name') }}</label>
-                                                            <input type="text" value="{{ $brand->name }}" id="name"
+                                                            <label for="projectinput1">{{ __('Tag Name') }}</label>
+                                                            <input type="text" id="name"
                                                                    class="form-control"
-                                                                   placeholder="name"
+                                                                   value="{{ $tag->name }}"
+                                                                   placeholder="{{ __('Tag Name') }}"
                                                                    name="name">
                                                             @error("name")
                                                             <span class="text-danger">{{$message}}</span>
@@ -81,18 +63,18 @@
                                                     </div>
 
                                                     <div class="col-md-6">
-                                                        <div class="form-group mt-1">
-                                                            <input type="checkbox" value="1"
-                                                                   name="is_active"
-                                                                   id="switcheryColor4"
-                                                                   class="switchery" data-color="success" @if($brand->is_active == 1) checked @endif/>
-                                                            <label for="switcheryColor4"
-                                                                   class="card-title ml-1">{{ __('Status') }}</label>
-                                                            @error("is_active")
-                                                            <span class="text-danger">{{$message }}</span>
+                                                        <div class="form-group">
+                                                            <label for="projectinput1">{{ __('Slug') }}</label>
+                                                            <input type="text" value="{{ $tag->slug }}" id="slug"
+                                                                   class="form-control"
+                                                                   placeholder="{{ __('Slug') }}"
+                                                                   name="slug">
+                                                            @error("slug")
+                                                            <span class="text-danger">{{$message}}</span>
                                                             @enderror
                                                         </div>
                                                     </div>
+
 
                                                 </div>
 
@@ -102,10 +84,10 @@
                                             <div class="form-actions">
                                                 <button type="button" class="btn btn-warning mr-1"
                                                         onclick="history.back();">
-                                                    <i class="ft-x"></i> تراجع
+                                                    <i class="ft-x"></i> {{ __('Back') }}
                                                 </button>
                                                 <button type="submit" class="btn btn-primary">
-                                                    <i class="la la-check-square-o"></i> حفظ
+                                                    <i class="la la-check-square-o"></i> {{ __('Save') }}
                                                 </button>
                                             </div>
                                         </form>

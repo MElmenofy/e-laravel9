@@ -20,7 +20,7 @@ class Brand extends Model
     public $translatedAttributes = ['name'];
 
     public  function getActive(){
-        return $this->is_active == 0 ? 'Active' : 'DeActive';
+        return $this->is_active == 0 ? __('DeActive') : __('Active');
     }
 
     public function getPhotoAttribute($value){
