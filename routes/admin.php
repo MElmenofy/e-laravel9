@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\Dashboard\BrandsController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\LoginController;
 use App\Http\Controllers\Dashboard\MainCategoriesController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\SettingsController;
 use App\Http\Controllers\Dashboard\SubCategoriesController;
+use App\Http\Controllers\Dashboard\TagsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,6 +62,29 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
         });
         // /CATEGORIES
 
+        // brands
+        Route::group(['prefix' => 'brands'], function () {
+            Route::get('/', [BrandsController::class, 'index'])->name('admin.brands');
+            Route::get('create', [BrandsController::class, 'create'])->name('admin.brands.create');
+            Route::post('store', [BrandsController::class, 'store'])->name('admin.brands.store');
+            Route::get('edit/{id}', [BrandsController::class, 'edit'])->name('admin.brands.edit');
+            Route::post('update/{id}', [BrandsController::class, 'update'])->name('admin.brands.update');
+            Route::get('delete/{id}', [BrandsController::class, 'destroy'])->name('admin.brands.delete');
+        });
+        // /brands
+
+
+
+        // tags
+        Route::group(['prefix' => 'tags'], function () {
+            Route::get('/', [TagsController::class, 'index'])->name('admin.tags');
+            Route::get('create', [TagsController::class, 'create'])->name('admin.tags.create');
+            Route::post('store', [TagsController::class, 'store'])->name('admin.tags.store');
+            Route::get('edit/{id}', [TagsController::class, 'edit'])->name('admin.tags.edit');
+            Route::post('update/{id}', [TagsController::class, 'update'])->name('admin.tags.update');
+            Route::get('delete/{id}', [TagsController::class, 'destroy'])->name('admin.tags.delete');
+        });
+        // /tags
 
     });
 

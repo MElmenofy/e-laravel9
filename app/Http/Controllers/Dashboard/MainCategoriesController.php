@@ -12,32 +12,39 @@ class MainCategoriesController extends Controller
 {
     public function index()
     {
-        $categories = Category::parent()->orderBy('id', 'DESC')->paginate(PAGINATION_COUNT);
+        $categories = Category::orderBy('id', 'DESC')->paginate(PAGINATION_COUNT);
         return view('dashboard.categories.index', compact('categories'));
     }
 
     public function create()
     {
-        return view('dashboard.categories.create');
+        $categories = Category::select('id', 'parent_id')->get();
+        return view('dashboard.categories.create', compact('categories'));
     }
 
     public function store(MainCategoryRequest $request)
     {
         try {
             DB::beginTransaction();
-                if (!$request->has('is_active')) {
-                    $request->request->add(['is_active' => 0]);
-                } else {
-                    $request->request->add(['is_active' => 1]);
-                }
-                $category = Category::create($request->except('_token'));
-                    $category->name = $request->name;
-                    $category->save();
+            if (!$request->has('is_active')) {
+                $request->request->add(['is_active' => 0]);
+            } else {
+                $request->request->add(['is_active' => 1]);
+            }
+            // if user choose main category then  we will set parent_id to null
+            if ($request->type == 1) {
+                $request->request->add(['parent_id' => null]);
+            }
+            // if user choose child category then  we will add parent_id
+
+            $category = Category::create($request->except('_token'));
+            $category->name = $request->name;
+            $category->save();
             DB::commit();
-                    return redirect()->route('admin.maincategories')->with('success', __('Category Added Successfully'));
-        }catch (\Exception $e){
+            return redirect()->route('admin.maincategories')->with('success', __('Item created successfully'));
+        } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('admin.maincategories')->with('error', __('Failed'));
+            return redirect()->route('admin.maincategories')->with('error', __('Something went wrong'));
         }
     }
 
@@ -45,7 +52,7 @@ class MainCategoriesController extends Controller
     {
         $category = Category::orderBy('id', 'DESC')->find($id);
         if (!$category) {
-            return redirect()->back()->with('error', 'هذا القسم غير موجود');
+            return redirect()->back()->with('error', __('Item not found'));
         } else {
             return view('dashboard.categories.edit', compact('category'));
         }
@@ -61,7 +68,7 @@ class MainCategoriesController extends Controller
             }
             $category = Category::find($id);
             if (!$category) {
-                return redirect()->route('admin.maincategories')->with('error', 'هذا القسم غير موجود');
+                return redirect()->route('admin.maincategories')->with('error', __('Item not found'));
             } else {
                 $category->update($request->all());
                 $category->name = $request->name;
@@ -69,7 +76,7 @@ class MainCategoriesController extends Controller
                 return redirect()->route('admin.maincategories')->with('success', __('Item Updated Successfully'));
             }
         } catch (\Exception $e) {
-            return redirect()->route('admin.maincategories')->with('error', __('Failed'));
+            return redirect()->route('admin.maincategories')->with('error', __('Something went wrong'));
         }
     }
 
@@ -78,12 +85,12 @@ class MainCategoriesController extends Controller
         try {
             $category = Category::find($id);
             if (!$category) {
-                return redirect()->route('admin.maincategories')->with('error', 'هذا القسم غير موجود');
+                return redirect()->route('admin.maincategories')->with('error', __('Item not found'));
             } else {
                 $category->delete();
-                return redirect()->route('admin.maincategories')->with('success', __('Item Deleted Successfully'));
+                return redirect()->route('admin.maincategories')->with('success', __('Item deleted successfully'));
             }
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
         }
     }
 }

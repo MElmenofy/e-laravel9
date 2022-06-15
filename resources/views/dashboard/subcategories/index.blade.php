@@ -50,6 +50,7 @@
                                             <tr>
                                                 <th>{{ __('Name') }}</th>
                                                 <th>{{ __('Slug') }}</th>
+                                                <th>{{ __('Parent Cat') }}</th>
                                                 <th>{{ __('Status') }}</th>
                                                 <th>{{ __('Category Image') }}</th>
                                                 <th>{{ __('Actions') }}</th>
@@ -61,8 +62,9 @@
                                                     <tr>
                                                         <td>{{ $category->name }}</td>
                                                         <td>{{ $category->slug }}</td>
+                                                        <td>{{ $category->_parent->name }}</td>
                                                         <td>{{ $category->getActive() }}</td>
-                                                        <td> <img style="width: 150px; height: 100px;" src=" "></td>
+                                                        <td> <img style="width: 150px; height: 100px;" src=""></td>
                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">
