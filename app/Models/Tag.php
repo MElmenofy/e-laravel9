@@ -12,4 +12,5 @@ class Tag extends Model
     protected $with = ['translations'];
     protected $fillable = ['slug'];
     public $translatedAttributes = ['name'];
+
 }
