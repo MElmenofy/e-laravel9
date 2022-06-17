@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\BrandsController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\LoginController;
 use App\Http\Controllers\Dashboard\MainCategoriesController;
+use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\SettingsController;
 use App\Http\Controllers\Dashboard\SubCategoriesController;
@@ -86,6 +87,17 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
         });
         // /tags
 
+
+        // products
+        Route::group(['prefix' => 'products'], function () {
+            Route::get('/', [ProductController::class, 'index'])->name('admin.products');
+            Route::get('general-information', [ProductController::class, 'create'])->name('admin.products.general.create');
+            Route::post('store', [ProductController::class, 'store'])->name('admin.products.store');
+            Route::get('edit/{id}', [ProductController::class, 'edit'])->name('admin.products.edit');
+            Route::post('update/{id}', [ProductController::class, 'update'])->name('admin.products.update');
+            Route::get('delete/{id}', [ProductController::class, 'destroy'])->name('admin.products.delete');
+        });
+        // /products
     });
 
     Route::group(['namespace' => 'Dashboard', 'middleware' => 'guest:admin', 'prefix' => 'admin'], function () {

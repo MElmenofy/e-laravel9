@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin;
+use App\Models\Category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class AdminDatabaseSeeder extends Seeder
+class ProductDatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,10 +15,6 @@ class AdminDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Admin::Create([
-           'name' => 'Elmenofy',
-           'email' => 'Elmenofy@gmail.com',
-           'password' => bcrypt('123123123'),
-        ]);
+        \App\Models\Product::factory(20)->create();
     }
 }
